@@ -90,11 +90,6 @@ CREATE TABLE section (
 
     FOREIGN KEY (building, room_number)
         REFERENCES classroom(building, room_number)
-
-    -- 注意：
-    -- time_slot_id 在经典 university schema 中
-    -- 不能直接单独引用 time_slot 的复合主键，
-    -- 所以这里不添加 FK。
 );
 
 CREATE TABLE takes (
@@ -161,12 +156,6 @@ CREATE TABLE teaches (
             year
         )
 );
-
-
--- =====================================================
--- 10. advisor
--- student 和 instructor 的 advisor relationship
--- =====================================================
 
 CREATE TABLE advisor (
     s_ID VARCHAR(5),

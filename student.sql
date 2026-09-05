@@ -186,4 +186,64 @@ CREATE TABLE prereq (
         REFERENCES course(course_id)
 );
 
+USE student;
 
+-- department
+INSERT INTO department VALUES
+('CS', 'Engineering', 120000),
+('Math', 'Science', 90000),
+('Biology', 'LifeSci', 100000);
+
+-- classroom
+INSERT INTO classroom VALUES
+('Engineering', '101', 50),
+('Engineering', '102', 40),
+('Engineering', '103', 60);
+
+-- student
+INSERT INTO student VALUES
+('1001', 'Alice', 'CS', 80),
+('1002', 'Bob', 'CS', 70),
+('1003', 'Carol', 'Math', 90),
+('1004', 'David', 'CS', 60),
+('1005', 'Emma', 'Biology', 50);
+
+-- instructor
+INSERT INTO instructor VALUES
+('1101', 'Smith', 'CS', 90000),
+('1102', 'Brown', 'Math', 85000);
+
+-- course
+INSERT INTO course VALUES
+('CS101', 'Introduction to CS', 'CS', 3),
+('CS201', 'Database Systems', 'CS', 3),
+('CS301', 'Algorithms', 'CS', 3);
+
+-- section
+INSERT INTO section VALUES
+('CS101', '1', 'Spring', 2018, 'Engineering', '101', 'A'),
+('CS201', '1', 'Spring', 2018, 'Engineering', '102', 'B'),
+('CS301', '1', 'Spring', 2018, 'Engineering', '103', 'C'),
+
+-- another semester
+('CS201', '1', 'Fall', 2018, 'Engineering', '102', 'B');
+
+-- advisor
+INSERT INTO advisor VALUES
+('1001', '1101'),
+('1002', '1101'),
+('1003', '1102'),
+('1004', '1101');
+
+-- takes
+INSERT INTO takes VALUES
+('1001', 'CS101', '1', 'Spring', 2018, 'A'),
+('1001', 'CS201', '1', 'Spring', 2018, 'A'),
+('1001', 'CS301', '1', 'Spring', 2018, 'B'),
+
+('1002', 'CS101', '1', 'Spring', 2018, 'B'),
+('1002', 'CS201', '1', 'Spring', 2018, 'A'),
+
+('1003', 'CS201', '1', 'Spring', 2018, 'B'),
+
+('1004', 'CS201', '1', 'Fall', 2018, 'A');

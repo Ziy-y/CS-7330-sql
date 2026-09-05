@@ -1,0 +1,81 @@
+-- ==================
+-- Questions
+-- ==================
+
+-- 1. List ID and name of all students from CS department
+SELECT ID, name
+FROM student
+WHERE dept_name = 'CS';
+
+-- 2. List ID of all students advised by instructor 1101
+SELECT s_ID
+FROM advisor
+WHERE i_ID = '1101';
+
+-- 3. List ID and name of all students who took a class in Spring 2018
+SELECT DISTINCT s.ID, s.name
+FROM student AS s
+JOIN takes AS t
+    ON s.ID = t.ID
+WHERE t.semester = 'Spring'
+  AND t.year = 2018;
+
+-- 4. List ID and name of all students
+-- who took Database Systems in Spring 2018
+SELECT DISTINCT s.ID, s.name
+FROM student AS s
+JOIN takes AS t
+    ON s.ID = t.ID
+JOIN course AS c
+    ON t.course_id = c.course_id
+WHERE c.title = 'Database Systems'
+  AND t.semester = 'Spring'
+  AND t.year = 2018;
+
+-- 5. List ID of all students
+-- who took at least one class in Spring 2018
+SELECT DISTINCT ID
+FROM takes
+WHERE semester = 'Spring'
+  AND year = 2018;
+  
+-- 6. List ID of all students
+-- who took at least two classes in Spring 2018
+SELECT ID
+FROM takes
+WHERE semester = 'Spring'
+  AND year = 2018
+GROUP BY ID
+HAVING COUNT(*) >= 2;
+
+-- 7. List ID of all students
+-- who took NO classes in Spring 2018
+SELECT s.ID
+FROM student AS s
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM takes AS t
+    WHERE t.ID = s.ID
+      AND t.semester = 'Spring'
+      AND t.year = 2018
+);
+
+-- 8. List ID of all students
+-- who took EVERY class offered in Spring 2018
+SELECT s.ID
+FROM student AS s
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM section AS sec
+    WHERE sec.semester = 'Spring'
+      AND sec.year = 2018
+      AND NOT EXISTS (
+          SELECT 1
+          FROM takes AS t
+          WHERE t.ID = s.ID
+            AND t.course_id = sec.course_id
+            AND t.sec_id = sec.sec_id
+            AND t.semester = sec.semester
+            AND t.year = sec.year
+      )
+);
